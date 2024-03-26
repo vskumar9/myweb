@@ -38,10 +38,10 @@
   	</distributionManagement>
 	
 	<pluginRepositories>
-	    <pluginRepository>    
-		<id>maven1</id>
-		<name>Maven.org</name>
-		<url>http://repo1.maven.org/maven2</url>
+	    <pluginRepository>
+	        <id>mavenCentral</id>
+	        <name>Maven Central Repository</name>
+	        <url>https://repo.maven.apache.org/maven2</url>
 	    </pluginRepository>
 	</pluginRepositories>
 
