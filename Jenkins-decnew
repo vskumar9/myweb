@@ -13,12 +13,18 @@ pipeline{
                 git branch: 'main', credentialsId: 'sanjeev', url: 'https://github.com/vskumar9/myweb.git'
             }
         }
-        stage("Maven Build"){
+        /*stage("Maven Build"){
             steps{
                 sh "mvn clean package"
                 sh "mv target/*.war target/myweb.war"
             }
-        }
+        }*/
+        stage("Maven Build") {
+            steps {
+                sh "/etc/maven/apache-maven-3.9.6/bin/mvn clean package"
+                sh "mv target/*.war target/myweb.war"
+                }
+            }
         stage("deploy-dev"){
             steps{
                 sshagent(['tomcat-new']) {
