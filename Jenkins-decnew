@@ -21,7 +21,8 @@ pipeline{
         }*/
         stage("Maven Build") {
             steps {
-                sh "/etc/maven/apache-maven-3.9.6/bin/mvn clean package"
+                //sh "/etc/maven/apache-maven-3.9.6/bin/mvn clean package"
+                sh "/usr/share/maven/bin/mvn clean package"
                 sh "mv target/*.war target/myweb.war"
                 }
             }
