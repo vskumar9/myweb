@@ -20,7 +20,7 @@ pipeline{
         /*stage("Maven Build") {
             steps {
                 //sh "/etc/maven/apache-maven-3.9.6/bin/mvn clean package"
-                sh "/usr/share/maven/bin/mvn clean package"
+                sh "mvn clean package"
                 sh "mv target/*.war target/myweb.war"
                 }
             }*/
@@ -28,11 +28,11 @@ pipeline{
             steps{
                 sshagent(['tomcat-new']) {
                 sh """
-                    scp -o StrictHostKeyChecking=no target/myweb.war  ec2-user@172.31.33.158:/home/ec2-user/apache-tomcat-9.0.87/webapps/
+                    scp -o StrictHostKeyChecking=no target/myweb.war  ec2-user@172.31.34.152:/home/ec2-user/apache-tomcat-9.0.87/webapps/
                     
-                    ssh ec2-user@172.31.33.158 /home/ec2-user/apache-tomcat-9.0.87/bin/shutdown.sh
+                    ssh ec2-user@172.31.34.152 /home/ec2-user/apache-tomcat-9.0.87/bin/shutdown.sh
                     
-                    ssh ec2-user@172.31.33.158 /home/ec2-user/apache-tomcat-9.0.87/bin/startup.sh
+                    ssh ec2-user@172.31.34.152 /home/ec2-user/apache-tomcat-9.0.87/bin/startup.sh
                 
                 """
             }
