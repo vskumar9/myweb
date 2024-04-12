@@ -2,7 +2,7 @@ pipeline{
     agent any
     
     environment{
-        PATH = "/usr/bin:$PATH"
+        PATH = "/usr/bin:/usr/local/bin:/opt/apache-maven/bin:$PATH"
 
     }
     stages{
