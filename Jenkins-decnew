@@ -2,7 +2,7 @@ pipeline{
     agent any
     
     environment{
-        PATH = "mvn: /etc/maven:$PATH"
+        PATH = "/etc/maven:$PATH"
 
     }
     stages{
