@@ -11,7 +11,7 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-                git branch: 'main', credentialsId: '95e218a1-55d7-4e60-9db8-e9fbb3dcb767', url: 'https://github.com/vskumar9/myweb.git'
+                git branch: 'main', credentialsId: '25d8b266-9508-4d4d-a146-51e14e7ce023', url: 'https://github.com/vskumar9/myweb.git'
             }
         }
         stage("Maven Build"){
@@ -22,30 +22,19 @@ pipeline{
         }
         stage('Upload War To Nexus'){
             steps{
-                  nexusArtifactUploader artifacts: [[
-                        artifactId: 'myweb', 
-                        classifier: '', 
-                        file: 'target/myweb-8.2.0.war', 
-                        type: 'war'
-                    ]], 
-                credentialsId: 'af6f8be9-9405-4f67-b2d5-508f3a138596', 
-                groupId: 'in.javahome', 
-                nexusUrl: '172.31.28.35:8081', 
-                nexusVersion: 'nexus3', 
-                protocol: 'http', 
-                repository: 'sample-snapshots', 
-                version: '8.2.0'
+                  nexusArtifactUploader artifacts: [[artifactId: 'myweb', classifier: '', file: 'target/myweb-8.2.0.war', type: 'war']], 
+                  credentialsId: '2ebc47e2-e6a9-4030-ac28-4b1f8b0aaf83', groupId: 'in.javahome', nexusUrl: '172.31.22.149:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'sample-release', version: '8.2.0'
               }
             }
         stage("deploy-dev"){
             steps{
-                sshagent(['tomcat-new']) {
+                sshagent(['1f41afb6-80e1-43f8-b496-9e964d9c9ee2']) {
                 sh """
-                    scp -o StrictHostKeyChecking=no target/myweb-8.2.0.war  ec2-user@172.31.30.222:/home/ec2-user/apache-tomcat-9.0.88/webapps/
+                    scp -o StrictHostKeyChecking=no target/myweb-8.2.0.war  ec2-user@172.31.22.63:/home/ec2-user/apache-tomcat-9.0.88/webapps/
                     
-                    ssh ec2-user@172.31.30.222 /home/ec2-user/apache-tomcat-9.0.88/bin/shutdown.sh
+                    ssh ec2-user@172.31.22.63 /home/ec2-user/apache-tomcat-9.0.88/bin/shutdown.sh
                     
-                    ssh ec2-user@172.31.30.222 /home/ec2-user/apache-tomcat-9.0.88/bin/startup.sh
+                    ssh ec2-user@172.31.22.63 /home/ec2-user/apache-tomcat-9.0.88/bin/startup.sh
                 
                 """
             }
